@@ -1,5 +1,5 @@
 import React from "react";
-import usePersistState from "../../src";
+import usePersistState from "next-persist-state";
 
 const App = () => {
   const [value, setValue, clearValue] = usePersistState(
