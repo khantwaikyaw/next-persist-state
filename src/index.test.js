@@ -1,29 +1,36 @@
-import { useMyHook } from './'
-import { renderHook, act } from "@testing-library/react-hooks";
+import usePersistState from "./";
+import { act } from "@testing-library/react-hooks";
+import { useEffect } from "react";
 
 // mock timer using jest
 jest.useFakeTimers();
 
-describe('useMyHook', () => {
-  it('updates every second', () => {
-    const { result } = renderHook(() => useMyHook());
+describe("usePersistHook", () => {
+  it("value and setValue clear value", () => {
+    const TestFunction = () => {
+      const [value, setValue, clearValue] = usePersistState(
+        "SAMPLE_KEY",
+        "Hello World!"
+      );
 
-    expect(result.current).toBe(0);
+      expect(value).toBe("Hello World!");
 
-    // Fast-forward 1sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+      useEffect(() => {
+        setValue("Updated Hello World!");
+      }, [setValue]);
 
-    // Check after total 1 sec
-    expect(result.current).toBe(1);
+      expect(value).toBe("Updated Hello World!");
 
-    // Fast-forward 1 more sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+      // Fast-forward 1sec
+      act(() => {
+        jest.advanceTimersByTime(1000);
+        useEffect(() => {
+          clearValue();
+        }, [clearValue]);
+      });
+      expect(value).toBe();
 
-    // Check after total 2 sec
-    expect(result.current).toBe(2);
-  })
-})
+      return value;
+    };
+  });
+});

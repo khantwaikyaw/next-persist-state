@@ -1,6 +1,6 @@
 {
   "name": "next-persist-state",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Localstorage for next js",
   "author": "khantwaikyaw",
   "license": "MIT",
