@@ -13,16 +13,28 @@ npm install --save next-persist-state
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from "react";
+import usePersistState from "next-persist-state";
 
-import { useMyHook } from 'next-persist-state'
+const App = () => {
+  /** add unique key so that specific state value can be retrieved */
+  const [value, setValue, clearValue] = usePersistState(
+    "SAMPLE_KEY",
+    "Hello World!"
+  );
 
-const Example = () => {
-  const example = useMyHook()
   return (
-    <div>{example}</div>
-  )
-}
+    <div>
+      <div>{value}</div>
+      <div>
+        <button onClick={() => setValue("New Value")}>set value</button>
+        <button onClick={() => clearValue()}>clear value</button>
+      </div>
+    </div>
+  );
+};
+
+export default App;
 ```
 
 ## License
